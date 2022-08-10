@@ -1,2 +1,2 @@
 # skyrim-enchantment-fx
-A Skyrim mod for greater control of weapon enchantment visuals
+The source code for the SKSE plugin of Vibrant weapons (https://www.nexusmods.com/skyrimspecialedition/mods/40087).

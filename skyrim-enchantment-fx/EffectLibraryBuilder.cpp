@@ -94,6 +94,29 @@ bool vw::EffectLibrary::Builder::process(MagicEffect& mgef)
 	if (ourState.id) {
 		if (auto res = m_data.effectIDs.insert({ mgef.formID, ourState.id }); res.second) {
 			_DMESSAGE("    Registered source effect %s (id:%08X)", mgef.fullName.GetName(), ourState.id);
+			
+			//Set our equip ability
+			if (Spell* equipAb = mgef.properties.equipAbility) {
+				//Append this mgef to the existing Spell's effect list, *unless* it's already there 
+				//(can happen if we build multiple libs during a session!)
+				bool ignore = false;
+				for (UInt32 i = 0; i < equipAb->effectItemList.count; i++) {
+					if (equipAb->effectItemList[i] && equipAb->effectItemList[i]->mgef == &mgef) {
+						ignore = true;
+						break;
+					}
+				}
+				if (!ignore) {
+					//We never clean this up. It lasts for the duration of the game session, so doesn't really matter.
+					//If nothing else, destruction of g_mainHeap will free it.
+					MagicItem::EffectItem* item = new MagicItem::EffectItem;
+					*item = *EffectLibrary::s_equipAbility->effectItemList[0];
+					equipAb->effectItemList.Push(item);
+				}
+			}
+			else {
+				mgef.properties.equipAbility = EffectLibrary::s_equipAbility;
+			}
 		}
 		else {
 			//Insertion failed. Should we combine the ids? I don't think so, the results could be unpredictable.

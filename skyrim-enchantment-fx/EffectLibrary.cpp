@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "EffectLibrary.h"
+#include "globals.h"
 #include "LogUtil.h"
+
+vw::Spell* vw::EffectLibrary::s_equipAbility{ nullptr };
 
 vw::FormID vw::EffectLibrary::Builder::s_flag_LEFT{ 0 };
 
@@ -74,6 +77,8 @@ void vw::EffectLibrary::addEffects(FormList* effects)
 
 void vw::EffectLibrary::build()
 {
+	init();
+
 	//We aren't really optimising for the most common case, that build order and pending order are equal.
 	//Doesn't really matter though, this is an infrequent call.
 	bool needBuild = false;
@@ -126,5 +131,17 @@ void vw::EffectLibrary::setFlags(FormList* flst)
 		Form* flagLeft = nullptr;
 		m_flags->forms.GetNthItem(0, flagLeft);
 		Builder::s_flag_LEFT = flagLeft ? flagLeft->formID : 0;
+	}
+}
+
+void vw::EffectLibrary::init()
+{
+	if (!g_modInfo) {
+		g_modInfo = DataHandler::GetSingleton()->LookupModByName("Vibrant weapons.esl");
+	}
+	if (!s_equipAbility) {
+		s_equipAbility = DYNAMIC_CAST(LookupFormByID(g_modInfo->GetFormID(EQUIP_ABILITY)), TESForm, SpellItem);
+		if (!s_equipAbility)
+			_ERROR("Equip Ability could not be found.");
 	}
 }

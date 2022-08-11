@@ -19,6 +19,7 @@
 #include "common/IPrefix.h"
 #include "common/ITypes.h"
 
+#include "skse64/GameData.h"
 #include "skse64/GameExtraData.h"
 #include "skse64/GameForms.h"
 #include "skse64/GameObjects.h"

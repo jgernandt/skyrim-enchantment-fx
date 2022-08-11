@@ -83,7 +83,13 @@ namespace vw
 		void addEffects(FormList* effects);
 		void build();
 		void setFlags(FormList* flst);
+
 	private:
+		void init();
+
+	private:
+		static Spell* s_equipAbility;
+
 		mutable std::shared_mutex m_mutex;//we could have more than one if we need more fine-grained locking
 
 		std::list<FormList*> m_buildOrder;

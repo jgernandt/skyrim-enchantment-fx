@@ -26,7 +26,8 @@ extern "C" {
 		"jgernandt",
 		"",
 		0,
-		{ RUNTIME_VERSION_1_6_353, 0 },
+		0,
+		{ RUNTIME_VERSION_1_6_629, 0 },
 		0,
 	};
 

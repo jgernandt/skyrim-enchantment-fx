@@ -27,7 +27,7 @@ extern "C" {
 		"",
 		0,
 		0,
-		{ RUNTIME_VERSION_1_6_629, 0 },
+		{ RUNTIME_VERSION_1_6_640, 0 },
 		0,
 	};
 

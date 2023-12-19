@@ -78,4 +78,9 @@ extern "C" {
 		_MESSAGE("Plugin loaded successfully.\n");
 		return true;
 	}
+
+	__declspec(dllexport) bool SKSEPlugin_Query(const SKSEInterface*, PluginInfo*)
+	{
+		return false;
+	}
 };

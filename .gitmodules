@@ -1,6 +1,0 @@
-[submodule "skse64"]
-	path = skse64
-	url = https://github.com/ianpatt/skse64
-[submodule "common"]
-	path = common
-	url = https://github.com/ianpatt/common.git
